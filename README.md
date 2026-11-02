@@ -79,11 +79,9 @@ python linear_regression.py
 
 Здесь рассматривается простейший случай: зависимость котировки от времени.
 
-Модель:
+Модель (1):
 
-$$
-y = A \cdot t + B \tag{1}
-$$
+$$y = A \cdot t + B$$
 
 где:
 
@@ -108,11 +106,9 @@ $$
 
 **Метод наименьших квадратов (МНК)** - метод, основанный на минимизации суммы квадратов отклонений модели от экспериментальных данных. Это один из базовых методов регрессионного анализа для оценки параметров модели по выборке.
 
-Целевая функция:
+Целевая функция (2):
 
-$$
-E(A, B) = \sum_{i=1}^{N} \left( A \cdot t_i + B - y_i \right)^2 \tag{2}
-$$
+$$E(A, B) = \sum_{i=1}^{N} (A \cdot t_i + B - y_i)^2$$
 
 где:
 
@@ -130,77 +126,53 @@ $$
 
 Для функции двух переменных $E(A, B)$ минимум достигается в точке, где обе частные производные равны нулю:
 
-$$
-\frac{\partial E}{\partial A} = \sum_{i=1}^{N} 2\left( A \cdot t_i + B - y_i \right) \cdot t_i = 0
-$$
+$$\frac{\partial E}{\partial A} = \sum_{i=1}^{N} 2(A \cdot t_i + B - y_i) \cdot t_i = 0$$
 
-$$
-\frac{\partial E}{\partial B} = \sum_{i=1}^{N} 2\left( A \cdot t_i + B - y_i \right) = 0
-$$
+$$\frac{\partial E}{\partial B} = \sum_{i=1}^{N} 2(A \cdot t_i + B - y_i) = 0$$
 
 ### 5. Упрощение системы уравнений
 
 Раскрываем скобки и упрощаем:
 
-$$
-\begin{cases}
-\sum_{i=1}^{N} \left( A \cdot t_i^{2} + B \cdot t_i - y_i \cdot t_i \right) = 0 \\
-\sum_{i=1}^{N} \left( A \cdot t_i + B - y_i \right) = 0
-\end{cases}
-$$
+$$\sum_{i=1}^{N} (A \cdot t_i^2 + B \cdot t_i - y_i \cdot t_i) = 0$$
+
+$$\sum_{i=1}^{N} (A \cdot t_i + B - y_i) = 0$$
 
 ### 6. Средние значения
 
 Для удобства вводится обозначение среднего арифметического:
 
-$$
-\langle k_i \rangle = \frac{1}{N} \sum_{i=1}^{N} k_i
-$$
+$$\langle k_i \rangle = \frac{1}{N} \sum_{i=1}^{N} k_i$$
 
 После деления уравнений на $N$ система записывается через средние:
 
-$$
-\begin{cases}
-A \cdot \langle t_i^{2} \rangle + B \cdot \langle t_i \rangle = \langle y_i \cdot t_i \rangle \\
-A \cdot \langle t_i \rangle + B = \langle y_i \rangle
-\end{cases}
-$$
+$$A \cdot \langle t_i^2 \rangle + B \cdot \langle t_i \rangle = \langle y_i \cdot t_i \rangle$$
+
+$$A \cdot \langle t_i \rangle + B = \langle y_i \rangle$$
 
 ### 7. Решение относительно $A$ и $B$
 
 Умножаем второе уравнение на $\langle t_i \rangle$:
 
-$$
-A \cdot \langle t_i \rangle^{2} + B \cdot \langle t_i \rangle = \langle y_i \rangle \cdot \langle t_i \rangle
-$$
+$$A \cdot \langle t_i \rangle^2 + B \cdot \langle t_i \rangle = \langle y_i \rangle \cdot \langle t_i \rangle$$
 
 Вычитаем его из первого:
 
-$$
-A \cdot \left( \langle t_i^{2} \rangle - \langle t_i \rangle^{2} \right) = \langle y_i \cdot t_i \rangle - \langle y_i \rangle \cdot \langle t_i \rangle
-$$
+$$A \cdot (\langle t_i^2 \rangle - \langle t_i \rangle^2) = \langle y_i \cdot t_i \rangle - \langle y_i \rangle \cdot \langle t_i \rangle$$
 
 Отсюда коэффициент наклона:
 
-$$
-A = \frac{\langle y_i \cdot t_i \rangle - \langle y_i \rangle \cdot \langle t_i \rangle}{\langle t_i^{2} \rangle - \langle t_i \rangle^{2}}
-$$
+$$A = \frac{\langle y_i \cdot t_i \rangle - \langle y_i \rangle \cdot \langle t_i \rangle}{\langle t_i^2 \rangle - \langle t_i \rangle^2}$$
 
 Подставляя $A$ во второе уравнение, получаем свободный член:
 
-$$
-B = \langle y_i \rangle - A \cdot \langle t_i \rangle
-$$
+$$B = \langle y_i \rangle - A \cdot \langle t_i \rangle$$
 
 ### 8. Итоговые формулы коэффициентов
 
-$$
-A = \frac{\langle y_i \cdot t_i \rangle - \langle y_i \rangle \cdot \langle t_i \rangle}{\langle t_i^{2} \rangle - \langle t_i \rangle^{2}}
-$$
+$$A = \frac{\langle y_i \cdot t_i \rangle - \langle y_i \rangle \cdot \langle t_i \rangle}{\langle t_i^2 \rangle - \langle t_i \rangle^2}$$
 
-$$
-B = \langle y_i \rangle - A \cdot \langle t_i \rangle
-$$
+$$B = \langle y_i \rangle - A \cdot \langle t_i \rangle$$
 
 Смысл параметров:
 
@@ -213,22 +185,18 @@ $$
 |---|---|---|
 | $\langle t_i \rangle$ | `t_mean` | среднее время |
 | $\langle y_i \rangle$ | `y_mean` | средняя цена |
-| $\langle t_i^{2} \rangle$ | `t_squared_mean` | среднее квадратов времени |
+| $\langle t_i^2 \rangle$ | `t_squared_mean` | среднее квадратов времени |
 | $\langle y_i \cdot t_i \rangle$ | `t_y_mean` | среднее произведений $t \cdot y$ |
 
 ### 9. Линейный тренд и оценка качества
 
 После нахождения $A$ и $B$ значения тренда в каждой точке:
 
-$$
-y_{\mathrm{trend}}(t) = A \cdot t + B
-$$
+$$y_{trend}(t) = A \cdot t + B$$
 
 Качество модели оценивается **среднеквадратичной ошибкой (MSE)**:
 
-$$
-\mathrm{MSE} = \frac{1}{N} \sum_{i=1}^{N} \left( y_i - y_{\mathrm{trend}}(t_i) \right)^{2} = \langle (y_i - A t_i - B)^{2} \rangle
-$$
+$$\mathrm{MSE} = \frac{1}{N} \sum_{i=1}^{N} (y_i - y_{trend}(t_i))^2$$
 
 Чем меньше MSE, тем лучше линейная модель описывает данные. Высокое MSE означает, что динамика ряда существенно нелинейна и простой прямой недостаточно для полного описания, хотя общий тренд она всё же может отражать.
 
@@ -238,9 +206,9 @@ $$
 
 1. Загрузка `TATN.xlsx`
 2. Преобразование дат в $t = 0..N-1$
-3. Расчёт $\langle t \rangle$, $\langle y \rangle$, $\langle t^{2} \rangle$, $\langle t y \rangle$
+3. Расчёт $\langle t \rangle$, $\langle y \rangle$, $\langle t^2 \rangle$, $\langle t y \rangle$
 4. Вычисление $A$ и $B$ по формулам выше
-5. Построение $y_{\mathrm{trend}} = A t + B$
+5. Построение $y_{trend} = A t + B$
 6. Визуализация и расчёт MSE
 
 ---
@@ -249,9 +217,7 @@ $$
 
 Полученная модель:
 
-$$
-y = 2.8968\,t + 76.7015
-$$
+$$y = 2.8968\, t + 76.7015$$
 
 ![Линейная регрессия котировок TATN](images/tatn_linear_regression.png)
 
